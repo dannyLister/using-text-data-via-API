@@ -8,7 +8,7 @@
     <title>Using text data via API</title>
 
     <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet"> 
-    <link rel="stylesheet" href="styles.css">
+  
   </head>
 
   <body>
@@ -31,17 +31,15 @@
 
     request.open('GET', requestURL);
   
-    request.responseType = 'text';  //can be 'json' too 
+    request.responseType = 'text';  //data received as raw json/string
     request.send();
 
     request.onload = function() {
-
-
-      let superHeroes = request.response;
+      let superHeroesText = request.response;
+      let superHeroes = JSON.parse(superHeroesText); //convert to javascript object
       populateHeader(superHeroes);
       showHeroes(superHeroes);
     }
-
 
     function populateHeader(jsonObj) {
       let myH1 = document.createElement('h1');
@@ -75,7 +73,6 @@
         myPara2.textContent = 'Age: ' + heroes[i].age;
         myPara3.textContent = superPowers[j];
         myList.appendChild(listItem);
-    
       }
 
       myArticle.appendChild(myH2);
